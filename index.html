@@ -222,7 +222,7 @@ const CATEGORIES = [
   {id:'luyentap',label:'Luyện tập', sub:'Luyện 4 kỹ năng · ôn tập tổng hợp',  ico:'练', color:'#A8532C'},
   {id:'tracuu',  label:'Tra cứu',   sub:'Từ vựng & ngữ pháp Bài 1–18',         ico:'查', color:'#A8532C'},
   {id:'filenghe',label:'Audio sách bài tập', sub:'Luyện nghe theo từng bài',     ico:'听', color:'#A8532C'},
-  {id:'thithu',  label:'Thi thử',   sub:'Đề mẫu HSK 3 · HSKK sơ cấp',          ico:'考', color:'#A8532C'},
+  {id:'thithu',  label:'Thi thử',   sub:'Đề thi thử HSK 3 · HSKK sơ cấp',          ico:'考', color:'#A8532C'},
 ];
 const TITLES = ["我们去机场接你们", "你们想吃什么就点什么", "这个小区挺好的", "这家宾馆跟别的都不一样", "这样的照片才好看", "高铁上还可以点外卖", "那条裙子比短裤更好看", "今天我出院了", "打不好没关系", "你明天再把书还给我", "看来我没办法解决这个问题", "这个季节天气变化很快", "我的新邻居来自英国", "这本书被别人借走了", "我是半个南京人", "我听说有的熊猫出国了", "我要多向认真的人学习", "我学会了包饺子"];
 const AUD = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""];
@@ -240,13 +240,15 @@ const LESSONS = [
   {n:null,hanzi:'语法查询',titleVi:'Tra cứu ngữ pháp',category:'tracuu',desc:'64 điểm ngữ pháp Bài 1–18 · Công thức, ví dụ có nghe, lỗi hay gặp · Rút ngẫu nhiên',href:'tra-cuu-HSK3.html#ngu-phap',ico:'法'},
   {n:null,hanzi:'HSKK（初级）样卷',titleVi:'Thi thử HSKK 3 · Đề mẫu',category:'thithu',desc:'15 câu nói · File nghe chạy liên tục ~16 phút · Ghi âm từng câu, gửi cho Thầy chấm',href:'de-mau-HSKK3.html',ico:'口'},
   {n:null,hanzi:'新版HSK（三级）样题',titleVi:'Thi thử HSK 3 · Đề mẫu',category:'thithu',desc:'Nghe · Đọc · Viết theo đề mẫu chính thức · Thầy đang hoàn thiện',href:'',soon:true,ico:'试'},
+  {n:null,hanzi:'全真模拟试卷（一）',titleVi:'Thi thử HSK 3 · Đề 1',category:'thithu',desc:'70 câu (Nghe 30 · Đọc 30 · Viết 10, khoảng 83 phút) · Thầy đang cập nhật file nghe',href:'',soon:true,ico:'一'},
+  {n:null,hanzi:'全真模拟试卷（二）',titleVi:'Thi thử HSK 3 · Đề 2',category:'thithu',desc:'70 câu (Nghe 30 · Đọc 30 · Viết 10, khoảng 83 phút) · Audio tự phát · Chấm điểm 300 · Xem lại câu sai, nghe lại từng câu',href:'thi-thu-hsk3-de2.html',ico:'二'},
   ...TITLES.map((t,i)=>({n:i+1,hanzi:'',titleVi:`Bài ${i+1}`,category:'filenghe',desc:'Audio sách bài tập · Luyện nghe',href:AUD[i],unit:i?'L'+(i+1):null})),
   {n:null,hanzi:'样卷',titleVi:'Đề mẫu · Sách bài tập',category:'filenghe',desc:'Audio đề mẫu trong sách bài tập',href:'',enc:"l5calzkKxSZt6xHsuVYT2/lveKs7p+qqpf8hgM/naGlbXm5nj9m0cglPB4fOWGuo+/0wkQoHJUHBO2SNKvqO4RN8ItRw81m0NRM87RJEWgRN/1xl799sv+bpKN8JGVwpINWHimMYszxtQuY9xH6oRNcVbQ==",unit:'EXAM',ico:'卷'},
 ];
 LESSONS.filter(l=>l.category==='filenghe'&&l.n).forEach((l,i)=>{const a=AUDIO_ENC[i];if(!a)return;if(a.href){l.href=a.href}else{l.href='';l.enc=a.enc;l.unit=a.unit}});
 const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 const UNIT_OF=l=>{if(l.unit)return l.unit;if((l.category==='baihoc'||l.category==='luyentap')&&l.n>1)return 'L'+l.n;if(l.category==='tracuu')return 'TC';
-  const m={'on-tap-tong-hop-1-6.html':'T1_6','on-tap-tong-hop-7-12.html':'T7_12','on-tap-tong-hop-13-18.html':'T13_18','on-tap-tong-hop-1-18.html':'EXAM','de-mau-HSKK3.html':'EXAM'};return m[l.href]||null};
+  const m={'on-tap-tong-hop-1-6.html':'T1_6','on-tap-tong-hop-7-12.html':'T7_12','on-tap-tong-hop-13-18.html':'T13_18','on-tap-tong-hop-1-18.html':'EXAM','de-mau-HSKK3.html':'EXAM','thi-thu-hsk3-de1.html':'EXAM','thi-thu-hsk3-de2.html':'EXAM'};return m[l.href]||null};
 async function unlockLinks(){for(const l of LESSONS){if(!l.enc)continue;if(GY.key(l.unit)){if(!l.href){try{l.href=await GY.decrypt(l.unit,l.enc)}catch(e){}}}else l.href=''}}
 function renderMember(){
   const s=GY.session(),raw=GY.rawSession(),el=document.querySelector('#member');
