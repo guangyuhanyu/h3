@@ -1540,5 +1540,10 @@ const act=document.querySelector('.slide.active'); if(act) window.__onShow(act);
 })();
 </script>
 
+<!-- GY bỏ bảng trắng cũ: ẩn nút + tắt phím (máy học viên); máy Thầy dùng gy-tools -->
+<style>#bBoard,#bDraw,#tBoard{display:none!important}</style>
+<script>(function(){try{if(localStorage.getItem('gy-teacher')==='1')return;}catch(e){}addEventListener('keydown',function(e){if(e.metaKey||e.ctrlKey||e.altKey)return;var t=e.target;if(t&&t.closest&&t.closest('input,textarea,[contenteditable]'))return;var k=(e.key||'').toLowerCase();if(k==='w'||(k==='d'&&document.getElementById('bDraw'))||(k==='b'&&document.getElementById('tBoard')))e.stopImmediatePropagation();},true);})();</script>
+<!-- GY-TOOLS loader v1 · công cụ giáo viên dùng chung (chỉ tải trên máy đã bật ?gv=1) -->
+<script>(function(){try{var q=location.search.match(/[?&]gv=([01])/);if(q)localStorage.setItem('gy-teacher',q[1]);if(localStorage.getItem('gy-teacher')!=='1')return;}catch(e){return;}var s=document.createElement('script');s.src='https://guangyuhanyu.github.io/gy-tools.js?t='+Math.floor(Date.now()/6e5);(document.head||document.documentElement).appendChild(s);})();</script>
 </body>
 </html>
